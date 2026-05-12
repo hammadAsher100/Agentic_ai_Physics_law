@@ -1,0 +1,17 @@
+# ============================================================
+# PROJECT TARTARUS — Cognitive Arbitration Engine
+# Requirements File
+# ============================================================
+
+# --- Anthropic Claude API (the brain of every AI agent) ---
+anthropic>=0.40.0
+
+# --- Environment variable management (for API keys) ---
+python-dotenv>=1.0.0
+
+# --- Data handling ---
+pydantic>=2.0.0          # Strict data models & validation for JSON schemas
+
+# --- Utilities ---
+rich>=13.0.0             # Pretty terminal output (colored logs, tables)
+tenacity>=8.2.0          # Retry logic for API calls (handles rate limits)

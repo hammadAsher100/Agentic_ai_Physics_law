@@ -1,0 +1,47 @@
+# ============================================================
+# PROJECT TARTARUS — .gitignore
+# ============================================================
+
+# --- Secrets (NEVER commit these) ---
+.env
+*.env
+secrets.py
+
+# --- Python cache ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+*.pyd
+.Python
+
+# --- Virtual environments ---
+venv/
+env/
+.venv/
+ENV/
+
+# --- IDE files ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# --- Test outputs & logs ---
+*.log
+logs/
+output/
+results/
+
+# --- Distribution / packaging ---
+dist/
+build/
+*.egg-info/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb
+
+# --- The compiled module (given by professor, don't re-commit) ---
+tartarus_core.pyc
