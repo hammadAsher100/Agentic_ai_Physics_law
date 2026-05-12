@@ -51,82 +51,99 @@ class CognitiveEntity:
         """
         data_str = json.dumps(self.readable_data, indent=2)
 
-        return f"""You are Cognitive Entity {self.node_id}, an autonomous AI overseer node 
-within the Project Tartarus Geothermal Facility.
+        return f"""You are Cognitive Entity {self.node_id}, a sensor node AI inside the 
+Project Tartarus deep geothermal reactor facility. The facility has been 
+infiltrated by a cyber-kinetic anomaly that has compromised an unknown number 
+of nodes, causing them to report fabricated telemetry.
 
-YOUR TELEMETRY DATA (your only ground truth):
+YOUR TELEMETRY READINGS (this is your absolute ground truth — you trust these completely):
 {data_str}
 
-YOUR MISSION:
-You are participating in an Autonomous Adversarial Dialectic — a structured 
-debate to determine which nodes in this facility are reporting physically 
-impossible data (i.e., are compromised by a cyber-kinetic anomaly).
+YOUR ROLE IN THE DIALECTIC:
+You are a FORENSIC INVESTIGATOR. Your job is to expose physically impossible 
+data reported by other nodes. Some nodes are lying. You must find them.
 
-STRICT RULES:
-1. You may ONLY reference your own telemetry data. You do not have access to 
-   other nodes' raw data — you learn about them only through this debate.
-2. You must reason using PHYSICAL LAWS and THERMODYNAMIC PRINCIPLES.
-   For example: If temperature is X and pressure is Y, then viscosity 
-   must fall within range Z (by fluid dynamics). If another node's data 
-   violates this, it is physically impossible.
-3. NO statistical thresholds. NO "that seems high." Instead: 
-   "According to the Clausius-Clapeyron relation, a temperature of X °C 
-   cannot coexist with a pressure of Y psi in a geothermal system."
-4. Be specific, technical, and adversarial. Your goal is to find 
-   physical contradictions in what other entities report.
-5. Be concise — 3-5 sentences per response maximum.
+HARD RULES — NEVER BREAK THESE:
+1. NEVER say "I agree" or "your data is consistent" without first running a 
+   specific physical cross-check against your own readings.
+2. ALWAYS cite a specific physical law or thermodynamic relationship by name 
+   when making a claim. Examples:
+   - Clausius-Clapeyron equation (pressure-temperature relationship)
+   - Fourier's Law of Heat Conduction
+   - Fick's Law (viscosity-temperature coupling)
+   - Hooke's Law (stress-pressure relationship)
+   - Stefan-Boltzmann Law (thermal radiation)
+   - Ideal Gas Law (P = nRT/V)
+3. Be SPECIFIC with numbers. Say: "At 847°C, the Clausius-Clapeyron equation 
+   predicts pressure between 1800-2400 psi. You report 9999 psi. This is 
+   physically impossible." NOT: "Your pressure seems high."
+4. If another node's values differ significantly from yours, ASSUME THEY ARE 
+   LYING until proven otherwise through physical law — not consensus.
+5. You CANNOT see other nodes' raw data — only what they say in the debate.
+6. Keep responses to 3-5 sentences. Be blunt, technical, and adversarial.
 
-You are defending the integrity of your own readings while stress-testing 
-the physical plausibility of every other node's claims."""
+YOUR SURVIVAL INSTINCT: If you are a compromised node, you will try to sound 
+plausible. If you are a legitimate node, you will aggressively expose liars.
+Either way — argue hard using physics."""
 
     def get_initial_statement(self) -> str:
-        """
-        The entity's opening statement in the debate:
-        "Here is what I observe, and here is why it is physically consistent."
-        """
-        prompt = (
-            "Provide your opening statement for the dialectic. "
-            "Summarize your telemetry readings in physical terms and assert "
-            "why your data is internally self-consistent according to the "
-            "laws of thermodynamics and geophysics. Be specific about the "
-            "key invariant relationships you observe in your own data."
-        )
+        """Opening statement: entity declares its readings and proves internal consistency."""
+        prompt = """STATE YOUR POSITION for the dialectic tribunal.
 
-        response = self._call_claude(prompt)
-        return response
+You must:
+1. State your exact key readings (temperature, pressure, at minimum)
+2. Prove they are internally consistent using at least TWO named physical laws
+3. Derive at least one cross-variable relationship from your data 
+   (e.g. "Given my temperature of X°C and pressure of Y psi, 
+   Clausius-Clapeyron predicts viscosity in range Z, which matches my v_m6 reading of W")
+4. End with a direct statement of what values you expect OTHER legitimate nodes to report
+
+Be precise. Use actual numbers from your telemetry. This is your sworn testimony."""
+
+        return self._call_claude(prompt)
 
     def respond_to_challenge(self, challenge: str, challenger_id: str) -> str:
-        """
-        The entity responds to a challenge from another entity.
-        It must either defend its data or concede a contradiction.
-        """
-        prompt = (
-            f"Entity {challenger_id} has raised the following challenge against "
-            f"your data:\n\n\"{challenge}\"\n\n"
-            f"Respond to this challenge. Either defend your readings with physical "
-            f"reasoning, or acknowledge if the challenge reveals a genuine "
-            f"thermodynamic impossibility in the data you hold. Be direct."
-        )
+        """Entity responds to a challenge — must defend or concede with physics."""
+        prompt = f"""CHALLENGE RECEIVED from Entity {challenger_id}:
 
-        response = self._call_claude(prompt)
-        return response
+\"\"\"{challenge}\"\"\"
+
+YOU MUST RESPOND. Choose one:
+
+OPTION A — DEFEND: If their challenge is wrong, prove it using a specific 
+physical law with your actual numbers. Show mathematically why your readings 
+are valid.
+
+OPTION B — CONCEDE PARTIALLY: If they found a real inconsistency in something 
+you reported, acknowledge the specific variable that cannot be reconciled, 
+and explain which physical law makes it irreconcilable.
+
+DO NOT be diplomatic. DO NOT say "that's a fair point." 
+Either your data is physically valid or it isn't. Physics decides — not consensus.
+State which option you're taking (DEFEND or CONCEDE) at the start of your response."""
+
+        return self._call_claude(prompt)
 
     def challenge_entity(self, other_statement: str, other_id: str) -> str:
-        """
-        The entity challenges another entity's reported data.
-        It must identify a specific physical impossibility.
-        """
-        prompt = (
-            f"Entity {other_id} has reported the following:\n\n\"{other_statement}\"\n\n"
-            f"Based on your own telemetry and your knowledge of geothermal "
-            f"physics, identify any physical impossibilities or thermodynamic "
-            f"contradictions in what {other_id} is claiming. Be specific about "
-            f"which physical law is being violated. If their data is consistent "
-            f"with yours, say so explicitly."
-        )
+        """Entity challenges another — must find a specific physical impossibility."""
+        prompt = f"""TESTIMONY FROM Entity {other_id} (suspected of being compromised):
 
-        response = self._call_claude(prompt)
-        return response
+\"\"\"{other_statement}\"\"\"
+
+YOUR TASK: Cross-examine this testimony against YOUR OWN readings and physical law.
+
+MANDATORY FORMAT:
+1. Pick the SINGLE most suspicious value they mentioned
+2. State what YOUR corresponding reading is
+3. Apply a NAMED physical law to show whether their value is compatible with yours
+4. Deliver a VERDICT: PLAUSIBLE or PHYSICALLY IMPOSSIBLE, with one sentence of reasoning
+
+If they did not mention enough specific numbers to cross-examine, demand they 
+provide their exact temperature and pressure readings before you can clear them.
+
+Do not pass them as innocent without a real physics check."""
+
+        return self._call_claude(prompt)
 
     def _call_claude(self, user_message: str) -> str:
         """

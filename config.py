@@ -9,6 +9,9 @@ ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
 CLAUDE_MODEL: str = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-20250514")
 MAX_TOKENS: int = int(os.getenv("MAX_TOKENS", "1500"))
 
+# --- Mock Mode (set by main.py) ---
+MOCK_MODE: bool = False  # Will be set to True if --mock flag is used
+
 # --- Debate Settings ---
 MAX_DIALECTIC_ROUNDS: int = int(os.getenv("MAX_DIALECTIC_ROUNDS", "3"))
 

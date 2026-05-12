@@ -38,7 +38,7 @@ def run_dialectic(entities: List[CognitiveEntity]) -> DialecticRecord:
         console.print(f"\n[cyan]► {entity.node_id} stating position...[/cyan]")
         statement = entity.get_initial_statement()
         record.opening_statements[entity.node_id] = statement
-        console.print(f"[dim]{statement[:200]}...[/dim]")  # Preview first 200 chars
+        console.print(f"[dim]{statement[:400]}[/dim]")
 
     # ---- PHASE 2: Adversarial Cross-Examination ----
     for round_num in range(1, MAX_DIALECTIC_ROUNDS + 1):
@@ -86,8 +86,8 @@ def run_dialectic(entities: List[CognitiveEntity]) -> DialecticRecord:
                     "response": response
                 })
 
-                console.print(f"  [dim]Challenge: {challenge[:120]}...[/dim]")
-                console.print(f"  [dim]Response:  {response[:120]}...[/dim]")
+                console.print(f"  [bold]Challenge:[/bold] {challenge[:300]}")
+                console.print(f"  [bold]Response: [/bold] {response[:300]}")
 
     console.print(Panel(
         f"[green]Dialectic complete.[/green] {len(record.exchanges)} exchanges recorded.",

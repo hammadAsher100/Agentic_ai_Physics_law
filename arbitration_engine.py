@@ -4,12 +4,17 @@ from typing import List, Dict, Any
 from dialectic_engine import DialecticRecord
 from output_schema import ResolutionOutput, PhysicsMatrix
 from cognitive_entity import CognitiveEntity
-from config import ANTHROPIC_API_KEY, CLAUDE_MODEL, MAX_TOKENS
+from config import ANTHROPIC_API_KEY, CLAUDE_MODEL, MAX_TOKENS, MOCK_MODE
 from rich.console import Console
 from rich.panel import Panel
 
 console = Console()
-client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+
+# Only create client if not in mock mode
+if not MOCK_MODE:
+    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+else:
+    client = None
 
 
 def run_arbitration(
@@ -76,14 +81,37 @@ You MUST respond with ONLY a valid JSON object matching this exact schema:
 
 No explanation outside the JSON. No markdown fences. Pure JSON only."""
 
-    # Call the arbitration Claude instance
-    response = client.messages.create(
-        model=CLAUDE_MODEL,
-        max_tokens=MAX_TOKENS,
-        messages=[{"role": "user", "content": arbitration_prompt}]
-    )
+    # In mock mode, return a deterministic verdict
+    if MOCK_MODE:
+        raw_json = json.dumps({
+            "absolute_truth_state": {
+                "Internal Thermal Kinetic Energy (°C)": 287,
+                "Containment Structural Stress / Pressure (psi)": 1050,
+                "Ambient Electromagnetic Flux (Webers)": 42.5,
+                "Sub-surface Acoustic Resonance (Hz)": 156.3,
+                "Micro-seismic Vibrational Tremors (g-force)": 0.12,
+                "Fluid Kinematic Viscosity Index": 7.8,
+                "Background Gamma Attenuation Baseline (mSv/h)": 2.3,
+                "sys_log": "NOMINAL"
+            },
+            "compromised_node_ids": ["NODE_003"],
+            "physics_matrix": {
+                "invariants_used": ["Clausius-Clapeyron", "Pressure-Temperature", "Viscosity Index"],
+                "contradictions_found": ["NODE_003 reports impossible pressure-temperature relation", "NODE_003 viscosity index violates geothermal constraints"],
+                "reasoning_summary": "NODE_003 data violates thermodynamic principles when cross-referenced with other nodes. Nodes 001, 002, and 004 maintain physical consistency. NODE_003 is compromised."
+            },
+            "confidence_level": "HIGH",
+            "dialectic_rounds_completed": record.round_count
+        })
+    else:
+        # Call the arbitration Claude instance
+        response = client.messages.create(
+            model=CLAUDE_MODEL,
+            max_tokens=MAX_TOKENS,
+            messages=[{"role": "user", "content": arbitration_prompt}]
+        )
 
-    raw_json = response.content[0].text.strip()
+        raw_json = response.content[0].text.strip()
 
     # Parse and validate the response against our schema
     try:
@@ -95,11 +123,11 @@ No explanation outside the JSON. No markdown fences. Pure JSON only."""
             confidence_level=parsed["confidence_level"],
             dialectic_rounds_completed=parsed["dialectic_rounds_completed"]
         )
-        console.print("[green]✓ Arbitration complete. Resolution validated.[/green]")
+        console.print("[green]+ Arbitration complete. Resolution validated.[/green]")
         return result
 
     except (json.JSONDecodeError, KeyError, Exception) as e:
-        console.print(f"[red]✗ Arbitration response parsing failed: {e}[/red]")
+        console.print(f"[red]- Arbitration response parsing failed: {e}[/red]")
         console.print(f"[dim]Raw response:\n{raw_json}[/dim]")
         raise RuntimeError(f"Arbitration failed to produce valid output: {e}")
 
@@ -120,7 +148,7 @@ def _build_transcript(record: DialecticRecord) -> str:
             lines.append(f"\n--- Round {current_round} ---")
 
         lines.append(
-            f"\n{exchange['challenger_id']} → {exchange['defender_id']}:\n"
+            f"\n{exchange['challenger_id']} -> {exchange['defender_id']}:\n"
             f"  CHALLENGE: {exchange['challenge']}\n"
             f"  RESPONSE:  {exchange['response']}"
         )
