@@ -1,0 +1,18 @@
+{
+  "absolute_truth_state": {
+    "v_m1": 315.2,
+    "v_m2": 2250.1,
+    "v_m3": 0.003,
+    "v_m4": 120.4,
+    "v_m5": 0.02,
+    "v_m6": 1.05,
+    "v_m7": 0.001
+  },
+  "compromised_entities": [
+    "D-04",
+    "E-05"
+  ],
+  "physics_matrix": {
+    "cross_variable_reasoning": "Node D-04 reported a temperature of 902.4\u00b0C with a pressure of 50.2 psi, violating Gay-Lussac's Law as the pressure is too low for such a high temperature. Additionally, the viscosity index of 9.999 at this temperature violates the Viscosity-Temperature relationship. Node E-05 reported a viscosity index of 0.0, violating the Viscosity Positivity law, which states that viscosity must be greater than 0."
+  }
+}

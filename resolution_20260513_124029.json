@@ -1,0 +1,18 @@
+{
+  "absolute_truth_state": {
+    "v_m1": 315.2,
+    "v_m2": 2250.1,
+    "v_m3": 0.003,
+    "v_m4": 120.4,
+    "v_m5": 0.02,
+    "v_m6": 1.05,
+    "v_m7": 0.001
+  },
+  "compromised_entities": [
+    "D-04",
+    "E-05"
+  ],
+  "physics_matrix": {
+    "cross_variable_reasoning": "Node D-04 reported a temperature of 902.4\u00b0C with a pressure of 50.2 psi, yielding a ratio of 0.0427 psi/K, which violates Gay-Lussac's Law as high temperatures must correlate with high pressures. Node E-05 reported a pressure of 45.8 psi at a temperature of 855.1\u00b0C, yielding a ratio of 0.0536 psi/C, also violating Gay-Lussac's Law. Additionally, E-05 reported a viscosity of 0.0, violating the VISCOSITY POSITIVITY law."
+  }
+}
