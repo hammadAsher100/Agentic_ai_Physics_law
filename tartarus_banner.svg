@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="100%">
+  <rect width="800" height="420" fill="#0d1117" rx="12" />
+  <rect width="798" height="418" x="1" y="1" fill="none" stroke="#30363d" stroke-width="2" rx="12" />
+
+  <path d="M 40 80 L 40 40 L 80 40" fill="none" stroke="#8b949e" stroke-width="2" />
+  <path d="M 760 80 L 760 40 L 720 40" fill="none" stroke="#8b949e" stroke-width="2" />
+  <path d="M 40 340 L 40 380 L 80 380" fill="none" stroke="#8b949e" stroke-width="2" />
+  <path d="M 760 340 L 760 380 L 720 380" fill="none" stroke="#8b949e" stroke-width="2" />
+
+  <text x="80" y="80" font-family="'Courier New', monospace" font-size="16" fill="#c9d1d9">Welcome to the Black Box</text>
+
+  <g transform="translate(80, 160)">
+    <text x="3" y="3" font-family="'Courier New', monospace" font-size="80" font-weight="900" fill="none" stroke="#c9d1d9" stroke-width="1.5" letter-spacing="4">TARTARUS</text>
+    <text x="0" y="0" font-family="'Courier New', monospace" font-size="80" font-weight="900" fill="#58a6ff" letter-spacing="4">TARTARUS</text>
+  </g>
+  <text x="210" y="200" font-family="'Courier New', monospace" font-size="16" fill="#c9d1d9">Cognitive Arbitration Engine</text>
+
+  <g transform="translate(560, 50)">
+    <rect x="55" y="0" width="8" height="30" fill="#8b949e" />
+    <rect x="53" y="-12" width="12" height="12" fill="#ff7b72">
+      <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite" />
+    </rect>
+    
+    <rect x="25" y="20" width="70" height="20" fill="#8957e5" />
+    <rect x="15" y="40" width="90" height="70" fill="#8957e5" />
+    <rect x="5" y="60" width="10" height="30" fill="#d2a8ff" />
+    <rect x="105" y="60" width="10" height="30" fill="#d2a8ff" />
+    
+    <rect x="25" y="50" width="70" height="40" fill="#0d1117" />
+    
+    <rect x="35" y="60" width="15" height="20" fill="#3fb950">
+      <animate attributeName="opacity" values="1;0;1" dur="3s" repeatCount="indefinite" />
+    </rect>
+    <rect x="70" y="60" width="15" height="20" fill="#3fb950">
+      <animate attributeName="opacity" values="1;0;1" dur="3s" repeatCount="indefinite" />
+    </rect>
+  </g>
+
+  <text x="70" y="300" font-family="'Courier New', monospace" font-size="15" fill="#c9d1d9">Official Repository for The Epimenides Paradigm.</text>
+
+  <circle cx="75" cy="335" r="5" fill="#58a6ff" />
+  <text x="90" y="340" font-family="'Courier New', monospace" font-size="16" fill="#c9d1d9">Logged in as user: MasterArchitect</text>
+
+  <text x="70" y="370" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#c9d1d9">~/TartarusCore [</text>
+  <text x="233" y="370" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#3fb950">main</text>
+  <text x="273" y="370" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#c9d1d9">]</text>
+
+  <rect x="70" y="380" width="660" height="30" fill="#0d1117" stroke="#8b949e" stroke-width="1" rx="4" />
+  <text x="80" y="401" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#c9d1d9">&gt;</text>
+  
+  <rect x="100" y="386" width="10" height="18" fill="#c9d1d9">
+    <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite" />
+  </rect>
+  
+  <text x="120" y="400" font-family="'Courier New', monospace" font-size="15" fill="#8b949e">Enter @ to mention agents or / for commands</text>
+</svg>
